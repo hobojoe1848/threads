@@ -56,7 +56,7 @@ def main():
     ## Start the worker threads
     threads = []
     for thread_id in range(number_of_threads_utilized):
-        ## Define a thread
+        ## Define a thread. Daemon thread is by default False thus not allowing the main thread to exit until these sub-threads have finished running.
         thread = Thread(target=worker, args=(thread_id, task_queue, result_list))
         ## Add the thread to a list in order to manage it
         threads.append(thread)
