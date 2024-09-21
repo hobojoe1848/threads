@@ -33,7 +33,7 @@ class ThreadingTaskManager:
                 self.result_list.append(temp_tuple)
                 self.task_queue.task_done()
             except Empty:
-                return ############## Exit the thread when the queue is empty. Primary difference, return vs break
+                return ############## Exit the thread when the queue is empty. Primary difference from other file being employed, return vs break
 
     def run_tasks(self):
         for task_id in range(self.max_number_of_tasks):
