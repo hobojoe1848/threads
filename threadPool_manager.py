@@ -1,13 +1,10 @@
 from queue import Queue
 from concurrent.futures import ThreadPoolExecutor
-from threading import Thread, Lock
 from time import sleep
 from random import randrange
 
-def printer():
-    return "Cat"
 
-class ThreadManager:
+class ThreadingTaskManager:
     def __init__(self, max_number_of_tasks, number_of_threads):
         self.task_queue = Queue()
         self.results = []
@@ -18,27 +15,29 @@ class ThreadManager:
         for task_id in range(self.max_number_of_tasks):
             self.task_queue.put(task_id)
 
-    def worker(self):
+    def worker(self, thread_id):
         while True:
-            task = self.task_queue.get()
-            if task is None:
+            task_id= self.task_queue.get()
+            print(f"Task: {task_id}, Thread_ID: {thread_id}")
+            if task_id is None:
                 break
-            self.results.append(task)
+            temp_tuple = (int(thread_id), int(task_id))
+            self.results.append(temp_tuple)
             sleep(randrange(0,2))  # Simulate work
             self.task_queue.task_done()
 
     def manage_threads(self):
-        with ThreadPoolExecutor(max_workers=self.number_of_threads) as executor:
+        with ThreadPoolExecutor(self.number_of_threads) as executor:
             # Start worker threads
+            for thread_id in range(self.number_of_threads):
+                executor.submit(self.worker, thread_id)
+        
+            # Wait for all tasks to be completed
+            self.task_queue.join()
+            
+            # Stop workers
             for _ in range(self.number_of_threads):
-                executor.submit(self.worker)
-        
-        # Wait for all tasks to be completed
-        self.task_queue.join()
-        
-        # Stop workers
-        for _ in range(self.number_of_threads):
-            self.task_queue.put(None)
+                self.task_queue.put(None)
 
     def run(self):
         self.queue_tasks()
