@@ -1,4 +1,4 @@
-from threadPool_manager import ThreadingTaskManager ## custom module
+from threadPool_manager import ThreadPoolTaskManager ## custom module
 
 from os import getpid
 

@@ -4,7 +4,7 @@ from time import sleep
 from random import randrange
 
 
-class ThreadingTaskManager:
+class ThreadPoolTaskManager:
     def __init__(self, max_number_of_tasks, number_of_threads):
         self.task_queue = Queue()
         self.results = []
