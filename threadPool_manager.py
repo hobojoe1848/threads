@@ -4,7 +4,7 @@ from time import sleep
 from random import randrange
 
 
-class ThreadingTaskManager:
+class ThreadPoolTaskManager:
     def __init__(self, max_number_of_tasks, number_of_threads):
         self.task_queue = Queue()
         self.results = []
@@ -27,15 +27,16 @@ class ThreadingTaskManager:
             self.task_queue.task_done()
 
     def manage_threads(self):
+        ## Create ThreadPoolExecutor context manager objects up to the value assigned to instance attribute self.number_of_threads
         with ThreadPoolExecutor(self.number_of_threads) as executor:
-            # Start worker threads
+            ## Populate ThreadPoolExecutor context manager object with the instance method self.worker() and an increment of the thread_id variable
             for thread_id in range(self.number_of_threads):
                 executor.submit(self.worker, thread_id)
         
-            # Wait for all tasks to be completed
-            self.task_queue.join() ## Block/wait for all tasks in the queue to be completed
+            ## Block/wait for all tasks to be completed
+            self.task_queue.join()
             
-            # Stop workers
+            ## Stop workers/threads
             for _ in range(self.number_of_threads): ## Inform all threads to end in conjuction with 'if' statement in worker() method
                 self.task_queue.put(None)
 
