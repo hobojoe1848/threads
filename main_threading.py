@@ -1,4 +1,4 @@
-from threading_manager_2 import ThreadingTaskManager ## custom module
+from threading_manager import ThreadingTaskManager ## custom module
 
 from os import getpid
 
