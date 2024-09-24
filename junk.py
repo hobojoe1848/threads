@@ -18,24 +18,21 @@ class ThreadingTaskManager:
     def worker(self, thread_id):
         while True:
             task_id= self.task_queue.get()
-            #print(f"Task_ID: {task_id}, Thread_ID: {thread_id}")
+            print(f"Task_ID: {task_id}, Thread_ID: {thread_id}")
             if task_id is None: ## If no more tasks are in the queue, end this particular thread
                 break
             temp_tuple = (int(thread_id), int(task_id))
             self.results.append(temp_tuple)
-            sleep(randrange(0,2))  # Simulate work
+            sleep(randrange(0,2))
             self.task_queue.task_done()
 
     def manage_threads(self):
         with ThreadPoolExecutor(self.number_of_threads) as executor:
-            # Start worker threads
             for thread_id in range(self.number_of_threads):
                 executor.submit(self.worker, thread_id)
         
-            # Wait for all tasks to be completed
             self.task_queue.join() ## Block/wait for all tasks in the queue to be completed
             
-            # Stop workers
             for _ in range(self.number_of_threads): ## Inform all threads to end in conjuction with 'if' statement in worker() method
                 self.task_queue.put(None)
 
@@ -43,3 +40,16 @@ class ThreadingTaskManager:
         self.queue_tasks()
         self.manage_threads()
         return self.results
+
+
+def main():
+
+    max_number_of_tasks = 30
+    number_of_threads_utilized = 8
+
+    task_manager = ThreadingTaskManager(max_number_of_tasks, number_of_threads_utilized)
+    results_list = task_manager.run()
+
+
+if __name__ == "__main__":
+    main()

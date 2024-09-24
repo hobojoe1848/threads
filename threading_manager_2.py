@@ -27,9 +27,10 @@ class ThreadingTaskManager:
     def worker(self, thread_id):
         while True:
             try:
-                item = self.task_queue.get(block=False)
+                task_id = self.task_queue.get(block=False)
+                print(f"Task_ID: {task_id}, Thread_ID: {thread_id}")
                 sleep(randrange(0, 2))
-                temp_tuple = (int(thread_id), int(item))
+                temp_tuple = (int(thread_id), int(task_id))
                 self.result_list.append(temp_tuple)
                 self.task_queue.task_done()
             except Empty:
