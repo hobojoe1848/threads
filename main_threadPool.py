@@ -17,7 +17,7 @@ def main():
     max_number_of_tasks = 30
     number_of_threads_utilized = 8
 
-    task_manager = ThreadingTaskManager(max_number_of_tasks, number_of_threads_utilized)
+    task_manager = ThreadPoolTaskManager(max_number_of_tasks, number_of_threads_utilized)
     results_list = task_manager.run()
 
     ## Creating log_entry
