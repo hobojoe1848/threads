@@ -40,7 +40,7 @@ class ThreadPoolTaskManager:
             for _ in range(self.number_of_threads): ## Inform all threads to end in conjuction with 'if' statement in worker() method
                 self.task_queue.put(None)
 
-    def run(self):
+    def run_tasks(self):
         self.queue_tasks()
         self.manage_threads()
         return self.results

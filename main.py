@@ -32,7 +32,7 @@ def main():
 
             elif user_input == 2:
                 task_manager = ThreadPoolTaskManager(max_number_of_tasks, number_of_threads_utilized)
-                results_list = task_manager.run()
+                results_list = task_manager.run_tasks()
 
             else:
                 print("Invalid input. You must enter either 0, 1 or 2, exiting the program...\n")
