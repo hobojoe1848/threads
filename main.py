@@ -29,10 +29,12 @@ def main():
                 break
 
             elif user_input == 1:
+                class_utilized = "threading.Thread"
                 task_manager = ThreadingTaskManager(max_number_of_tasks, number_of_threads_utilized)
                 results_list = task_manager.run_tasks()
 
             elif user_input == 2:
+                class_utilized = "concurrent.futures.ThreadPoolExecutor"
                 task_manager = ThreadPoolTaskManager(max_number_of_tasks, number_of_threads_utilized)
                 results_list = task_manager.run_tasks()
 
@@ -46,11 +48,14 @@ def main():
         
         ## Creating log_entry in JSON format
         log_entry = {"metadata": {
+            "class_utilized": class_utilized,
             "utilizedNumberOfThreads": number_of_threads_utilized,
             "maxNumberOfTasks": max_number_of_tasks
             },
             "orderedThreadIdTaskIdPairs": results_list
             }
+        
+        print(f"\n{log_entry}")
         
         ## Append JSON file with log_entry
         path = Path(r".\thread_logs.JSON")
