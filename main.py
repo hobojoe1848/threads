@@ -18,12 +18,14 @@ def main():
     max_number_of_tasks = 30
     number_of_threads_utilized = 8
 
+    print("This program simulates assigning 30 tasks to 8 threads, generates a JSON formatted log of the activity and updates a JSON file with the log.")
+
     while True:
         try:
             user_input = int(input("\nEnter 1 to run the task utilizing the 'threading' module,\nenter 2 to run the task utilizing the 'concurrent.futures' module or\nenter 0 to exit the program: "))
 
             if user_input == 0:
-                print("Exiting the program without performing the task...\n")
+                print("Exiting the program without performing the specified task...\n")
                 break
 
             elif user_input == 1:
