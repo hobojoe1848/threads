@@ -6,3 +6,4 @@ Pipfile*
 
 # ignore directories
 
+__pycache__/
