@@ -3,6 +3,11 @@
 
 Pipfile*
 
+# TEMP section (discard later)
+
+junk*
+test_junk*
+
 
 # ignore directories
 
