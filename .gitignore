@@ -2,11 +2,16 @@
 # ignore files
 
 Pipfile*
+notes*
+
+# -----------------------------------
 
 # TEMP section (discard later)
 
 junk*
 test_junk*
+
+# -----------------------------------
 
 
 # ignore directories
