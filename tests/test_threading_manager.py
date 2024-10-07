@@ -31,3 +31,18 @@ class TestThreadSafeList:
         ## Test that the lock can be acquired again after release
         assert obj.lock.acquire(blocking=False)  ## Should be able to acquire the lock again
         obj.lock.release()  ## Clean up by releasing the lock
+
+    def test_append_thread_list(self):
+        obj = ThreadSafeList()
+        
+        assert obj.lock.acquire(blocking=False)
+        obj.data.append(1)
+        assert obj.data == [1]
+        obj.lock.release()
+        
+        assert obj.lock.acquire(blocking=False)
+        obj.data.append(2)
+        assert obj.data == [1, 2]
+        obj.lock.release()
+
+    
